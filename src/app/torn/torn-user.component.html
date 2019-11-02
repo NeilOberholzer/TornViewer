@@ -1,0 +1,57 @@
+<div class="container">
+    <h3 class="text">Search User ID:</h3>
+    <form [formGroup]="userSearchForm" (ngSubmit)="sendToTorn(userSearchForm.value)">
+        <div class="form-group">
+            <input class="form-control" type="text" formControlName="userId">
+            <div *ngIf="userSearchForm.controls.userId.touched && !userSearchForm.controls.userId.valid" class="alert alert-danger">
+                User ID is required
+            </div>           
+        </div>
+    <button type="submit" class="btn btn-success btn-md" [disabled]="!userSearchForm.valid">Search user</button>
+    </form><br />
+    <div class="card border-secondary mb-3" style="min-width: 50%;">
+        <div class="card-header">General info</div>
+        <div class="card-body">
+            <h4 class="card-title"><a
+                    href="https://www.torn.com/profiles.php?XID={{this.userData?.player_id}}#/">{{this.userData?.name}}'s
+                    information - {{this.userData?.rank}}</a></h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h6>Life: {{this.userData?.life.current}} / {{this.userData?.life.maximum}}</h6>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" role="progressbar" aria-valuemin="0"
+                            aria-valuemax="100" [style.width]="math.floor(
+                                        (this.userData?.life.current / this.userData?.life.maximum) * 100
+                                    ) + '%'">
+                            {{math.floor(
+                                            (this.userData?.life.current / this.userData?.life.maximum) * 100
+                                        ) + '%'}}
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr class="table-primary">
+                                <td>Level: {{this.userData?.level}}</td>
+                                <td>Age: {{this.userData?.age}} days</td>
+                                <td>Gender: {{this.userData?.gender}}</td>
+                                <td>Job: {{this.userData?.job.position}}</td>
+                                <td>Last active: {{this.userData?.last_action.relative}}</td>
+                            </tr>
+
+                            <tr class="table-primary">
+                                <td>Married to: {{this.userData?.married.spouse_name}}</td>
+                                <td>Property: {{this.userData?.property}}</td>
+                                <td>Role: {{this.userData?.role}}</td>
+                                <td>Status: {{this.userData?.status[0]}}</td>
+                                <td>Awards: {{this.userData?.awards}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
